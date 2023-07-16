@@ -104,3 +104,35 @@ input[type="color"]::-webkit-color-swatch {
     border: 1px solid white;
     border-radius: 50%;
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.slider {
+    width: 70px;
+    height: 40px; 
+    border: 1px solid #FFF;
+    border-radius: 100px;
+    background: #e7e9ef;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+
+.slider-circle {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    left: -2px;
+    border-radius: 100px;
+    background: white;
+    transition: 0.2s ease-in-out;
+}
+
+.slider.active {
+    background-color: #6fa8dc;
+    border-color: white;
+    float: right;
+}

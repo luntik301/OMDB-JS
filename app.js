@@ -54,10 +54,37 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Получение элемента color-picker и добавление обработчика события change
     var colorPicker = document.getElementById('color-picker');
+    colorPicker.value = '#6fa8dc';
+    document.body.style.backgroundColor = colorPicker.value;
+    
     colorPicker.addEventListener('change', function () {
         var color = colorPicker.value;
         document.body.style.backgroundColor = color;
     });
+
+    var slider = document.querySelector('.slider');
+    var sliderCircle = document.querySelector('.slider-circle');
+    var buttons = document.querySelectorAll('button');
+    var isActive = false;
+    
+    slider.addEventListener('click', function() {
+      isActive = !isActive;
+    
+      if (isActive) {
+        slider.classList.add('active');
+        buttons.forEach(function(button) {
+          button.style.borderRadius = '0';
+        });
+        sliderCircle.style.marginLeft = 'calc(100% - 37px)';
+      } else {
+        slider.classList.remove('active');
+        buttons.forEach(function(button) {
+          button.style.borderRadius = '15px';
+        });
+        sliderCircle.style.marginLeft = '2%';
+      }
+    });
+    
+    
 });
