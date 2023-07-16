@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #6fa8dc;
+    color: #fff;
+}
+
+/* хэдер начало */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: #194d7a;
+    padding: 10px 2vw;
+    height: 80px;
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+input {
+    background-color: transparent;
+    border: 1px solid #fff;
+    padding: 15px;
+    width: 300px;
+    height: 20px;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    font-size: 28px;
+    text-align: center;
+}
+
+input::placeholder {
+    color: #fff;
+}
+
+button {
+    width: 250px;
+    height: 60px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 40px;
+    background-color: #1974D2;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid white;
+}
+
+button:active {
+    position: relative;
+    top: 2px;
+}
+
+/* хэдер конец */
+
+#movie-details {
+    display: flex;
+    margin: 100px 40px;
+}
+
+.movie-details-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-details-container p {
+    font-size: 30px;
+}
+
+.movie-details-container h2 {
+    font-size: 40px;
+    margin: 0;
+}
+
+#movie-details img {
+    width: 420px;
+    height: 623px;
+}
+
+.OMDB {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="color"] {
+    border: none;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: 1px solid white;
+    border-radius: 50%;
+}
