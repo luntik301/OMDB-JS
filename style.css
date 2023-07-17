@@ -222,3 +222,23 @@ input[type="color"]::-webkit-color-swatch {
 .add-to-favorites-button {
   height: 120px;
 }
+
+.delete-from-favorites {
+  margin-left: 20px;
+  position: relative;
+  top: -5px;
+  height: 40px;
+  width: 90px;
+  text-align: center;
+  font-size: 22px;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.favorite-movie-link {
+  margin-top: 10px;
+}
