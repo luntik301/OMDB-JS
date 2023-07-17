@@ -6,8 +6,6 @@ body {
   color: #fff;
 }
 
-/* хэдер начало */
-
 header {
   position: fixed;
   top: 0;
@@ -104,8 +102,6 @@ input[type="color"]::-webkit-color-swatch {
   float: right;
 }
 
-/* хэдер конец */
-
 #movie-details {
   display: flex;
   flex-direction: column;
@@ -113,24 +109,50 @@ input[type="color"]::-webkit-color-swatch {
   margin: 100px auto;
 }
 
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .movie-details-container {
   display: flex;
   flex-direction: column;
-  margin-right: 20px;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .movie-details-container p {
   font-size: 30px;
+  text-align: center;
 }
 
 .movie-details-container h2 {
   font-size: 40px;
   margin: 0;
+  text-align: center;
 }
 
 #movie-details img {
   width: 420px;
   height: 623px;
+}
+
+.add-to-favorites {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+}
+
+.poster-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .OMDB {
@@ -184,4 +206,19 @@ input[type="color"]::-webkit-color-swatch {
   font-size: 18px;
   font-weight: bold;
   color: #194d7a;
+}
+
+.favorite-movie-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#favorites-button.has-favorites {
+  background-color: #FF0000;
+}
+
+.add-to-favorites-button {
+  height: 120px;
 }
