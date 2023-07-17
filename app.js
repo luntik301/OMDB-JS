@@ -9,20 +9,79 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
+                } else {
+                    throw new Error('Error: ' + response.status);
                 }
             })
             .then(function (data) {
                 if (data.Response === 'True') {
-                    var movie = data.Search[0];
-                    displayMovieDetails(movie.imdbID);
+                    var movies = data.Search;
+                    displayMovieResults(movies);
                 } else {
-                    document.getElementById('movie-details').innerHTML = '<h2>Movie not found</h2>';
+                    document.getElementById('movie-details').innerHTML = '<h2>No movies found</h2>';
                 }
             })
             .catch(function (error) {
                 document.getElementById('movie-details').innerHTML = '<h2>' + error.message + '</h2>';
             });
     });
+
+    function displayMovieResults(movies) {
+        var movieResults = '';
+
+        movies.forEach(function (movie) {
+            var link = '<a href="#" data-imdbid="' + movie.imdbID + '" data-title="' + movie.Title + '">' + '<span class="movie-title">' + movie.Title + ' (' + movie.Year + ')</span>' + '</a>';
+            var tooltip = '<div class="tooltip">' + '<span class="tooltip-title">' + movie.Title + ' (' + movie.Year + ')</span>' + '</div>';
+            movieResults += '<div class="movie-link-container">' + link + tooltip + '</div>';
+
+            fetchMovieDescription(movie);
+        });
+
+        document.getElementById('movie-details').innerHTML = movieResults;
+
+        var movieLinks = document.querySelectorAll('#movie-details a');
+        movieLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var imdbId = link.getAttribute('data-imdbid');
+                displayMovieDetails(imdbId);
+            });
+
+            link.addEventListener('mouseover', function (event) {
+                var tooltip = link.nextElementSibling;
+                tooltip.style.visibility = 'visible';
+                tooltip.style.opacity = '1';
+            });
+
+            link.addEventListener('mouseout', function (event) {
+                var tooltip = link.nextElementSibling;
+                tooltip.style.visibility = 'hidden';
+                tooltip.style.opacity = '0';
+            });
+        });
+    }
+
+    function fetchMovieDescription(movie) {
+        var apiUrl = 'https://www.omdbapi.com/?apikey=' + apiKey + '&i=' + movie.imdbID;
+
+        fetch(apiUrl)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Error: ' + response.status);
+                }
+            })
+            .then(function (data) {
+                var description = data.Plot ? data.Plot.replace(/\n/g, '<br>') : 'Description not available';
+                var link = document.querySelector('a[data-imdbid="' + movie.imdbID + '"]');
+                var tooltip = link.nextElementSibling;
+                tooltip.innerHTML = '<span class="tooltip-title">' + movie.Title + ' (' + movie.Year + ')</span>' + '<br>' + description;
+            })
+            .catch(function (error) {
+                console.log('Error fetching movie description:', error);
+            });
+    }
 
     function displayMovieDetails(imdbId) {
         var apiUrl = 'https://www.omdbapi.com/?apikey=' + apiKey + '&i=' + imdbId;
@@ -31,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
+                } else {
+                    throw new Error('Error: ' + response.status);
                 }
             })
             .then(function (data) {
