@@ -76,7 +76,7 @@ input[type="color"]::-webkit-color-swatch {
   justify-content: center;
 }
 
-.slider {
+.slider, .secondSlider {
   width: 70px;
   height: 40px;
   border: 1px solid #FFF;
@@ -86,7 +86,7 @@ input[type="color"]::-webkit-color-swatch {
   cursor: pointer;
 }
 
-.slider-circle {
+.slider-circle, .secondSliderCircle {
   height: 40px;
   width: 40px;
   position: relative;
@@ -96,7 +96,7 @@ input[type="color"]::-webkit-color-swatch {
   transition: 0.2s ease-in-out;
 }
 
-.slider.active {
+.slider.active, .secondSlider.active {
   background-color: #6fa8dc;
   border-color: white;
   float: right;

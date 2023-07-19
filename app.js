@@ -1,9 +1,42 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var apiKey = '8eb18548';
-    var isActive = false;
-    var favoriteMovies = [];
+    var apiKey = '8eb18548'
+    var isActive = false
+    var favoriteMovies = []
 
     loadFavoriteMovies()
+
+    var secondSlider = document.querySelector('.secondSlider')
+    var secondSliderCircle = document.querySelector('.secondSliderCircle')
+    var headerBackground = document.getElementById('header')
+
+    isActive = loadIsActiveFromLocalStorage()
+    updateSliderState()
+
+    secondSlider.addEventListener('click', function () {
+        isActive = !isActive
+        updateSliderState()
+        saveIsActiveToLocalStorage()
+    })
+
+    function updateSliderState() {
+        if (isActive) {
+            secondSlider.classList.add('active')
+            headerBackground.style.backgroundColor = '#194d7a'
+            secondSliderCircle.style.marginLeft = 'calc(100% - 37px)'
+        } else {
+            secondSlider.classList.remove('active')
+            headerBackground.style.backgroundColor = '#0057cc'
+            secondSliderCircle.style.marginLeft = '2%'
+        }
+    }
+
+    function saveIsActiveToLocalStorage() {
+        localStorage.setItem('isActive', isActive)
+    }
+
+    function loadIsActiveFromLocalStorage() {
+        return localStorage.getItem('isActive') === 'true'
+    }
 
     document.getElementById('search-button').addEventListener('click', function () {
         var searchQuery = document.getElementById('search-input').value
@@ -36,10 +69,29 @@ document.addEventListener('DOMContentLoaded', function () {
         var movieResults = ''
 
         movies.forEach(function (movie) {
-            var link = '<a href="#" data-imdbid="' + movie.imdbID + '" data-title="' + movie.Title + '">' + '<span class="movie-title">' + movie.Title + ' (' + movie.Year + ')</span>' + '</a>'
-            var tooltip = '<div class="tooltip">' + '<span class="tooltip-title">' + movie.Title + ' (' + movie.Year + ')</span>' + '</div>'
+            var link =
+                '<a href="#" data-imdbid="' +
+                movie.imdbID +
+                '" data-title="' +
+                movie.Title +
+                '">' +
+                '<span class="movie-title">' +
+                movie.Title +
+                ' (' +
+                movie.Year +
+                ')</span>' +
+                '</a>'
+            var tooltip =
+                '<div class="tooltip">' +
+                '<span class="tooltip-title">' +
+                movie.Title +
+                ' (' +
+                movie.Year +
+                ')</span>' +
+                '</div>'
 
-            movieResults += '<div class="movie-link-container">' + link + tooltip + '</div>'
+            movieResults +=
+                '<div class="movie-link-container">' + link + tooltip + '</div>'
 
             fetchMovieDescription(movie)
         })
@@ -83,7 +135,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 var description = data.Plot ? data.Plot.replace(/\n/g, '<br>') : 'Description not available'
                 var link = document.querySelector('a[data-imdbid="' + movie.imdbID + '"]')
                 var tooltip = link.nextElementSibling
-                tooltip.innerHTML = '<span class="tooltip-title">' + movie.Title + ' (' + movie.Year + ')</span>' + '<br>' + description
+                tooltip.innerHTML =
+                    '<span class="tooltip-title">' +
+                    movie.Title +
+                    ' (' +
+                    movie.Year +
+                    ')</span>' +
+                    '<br>' +
+                    description
             })
             .catch(function (error) {
                 console.log('Error fetching movie description:', error)
@@ -176,8 +235,20 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             var movieResults = ''
             favoriteMovies.forEach(function (movie) {
-                var link = '<a href="#" data-imdbid="' + movie.imdbID + '" data-title="' + movie.Title + '">' + '<span class="movie-title">' + movie.Title + '</span>' + '</a>'
-                var deleteButton = '<button class="delete-from-favorites" data-imdbid="' + movie.imdbID + '">Delete</button>'
+                var link =
+                    '<a href="#" data-imdbid="' +
+                    movie.imdbID +
+                    '" data-title="' +
+                    movie.Title +
+                    '">' +
+                    '<span class="movie-title">' +
+                    movie.Title +
+                    '</span>' +
+                    '</a>'
+                var deleteButton =
+                    '<button class="delete-from-favorites" data-imdbid="' +
+                    movie.imdbID +
+                    '">Delete</button>'
                 movieResults += '<div class="favorite-movie-link">' + link + deleteButton + '</div>'
             })
             document.getElementById('movie-details').innerHTML = movieResults
@@ -221,6 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function saveFavoriteMovies() {
         localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies))
+        saveIsActiveToLocalStorage()
     }
 
     function loadFavoriteMovies() {
@@ -238,4 +310,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 })
-
